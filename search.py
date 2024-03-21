@@ -215,6 +215,7 @@ def best_first_graph_search(problem, f=None):
             if tuple(child.state) not in explored and child not in fringe:
                 fringe.append(child)
             elif child in fringe:
+                # No need to do f(fringe[child]) because the fringe is a priority queue and the f value is already stored in the node
                 if f(child) < fringe[child]:
                     del fringe[child]
                     fringe.append(child)
