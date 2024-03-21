@@ -126,7 +126,7 @@ class VacuumPlanning(Problem):
 
     def computeTurnCost(self, action1, action):
         """Compute the cost of turning from action1 to action.
-        Each 90-degree rotation costs 0.5 units."""
+        Each 90-degree rotation costs 0.5 units. Since its supposed to be half the cost of a action"""
         if action1 == action:
             return 0
         elif ((action1 == 'UP' and action == 'RIGHT') or (action1 == 'RIGHT' and action == 'DOWN') or 
