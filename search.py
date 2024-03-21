@@ -195,10 +195,32 @@ def best_first_graph_search(problem, f=None):
     There is a subtlety: the line "f = memoize(f, 'f')" means that the f
     values will be cached on the nodes as they are computed. So after doing
     a best first search you can examine the f values of the path returned."""
+
+    explored = set()
     f = memoize(f or problem.h, 'f')
     node = Node(problem.initial)
-    print("best_first_graph_search: to be done by students")
-    return None, None
+    fringe = PriorityQueue('min', f)
+    fringe.append(node)
+
+    while fringe:
+        node = fringe.pop()
+        # if the node is the goal state return the node and the explored set
+        if problem.goal_test(node.state):
+            return node, explored
+        # Current node is added to the explored set
+        explored.add(tuple(node.state))
+
+        for child in node.expand(problem):
+            # If child is not in the explored set or fringe then add it to the fringe without checking anything
+            if child not in explored and child not in fringe:
+                fringe.append(child)
+            elif child in fringe:
+                if f(child) < fringe[child]:
+                    del fringe[child]
+                    fringe.append(child)
+    return None, explored
+
+
 
 
 # Reason why uniform cost search isn't implemented is because we are using best_first_graph_search
