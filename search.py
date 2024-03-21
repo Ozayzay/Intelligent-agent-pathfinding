@@ -212,7 +212,7 @@ def best_first_graph_search(problem, f=None):
 
         for child in node.expand(problem):
             # If child is not in the explored set or fringe then add it to the fringe without checking anything
-            if child not in explored and child not in fringe:
+            if tuple(child.state) not in explored and child not in fringe:
                 fringe.append(child)
             elif child in fringe:
                 if f(child) < fringe[child]:
