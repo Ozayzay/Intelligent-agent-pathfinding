@@ -151,8 +151,10 @@ def breadth_first_graph_search(problem):
         # converting to a tuple to store it in the set
         explored.add(tuple(node.state))
         for child in node.expand(problem):
-            s = tuple(child.state)
-            fringe.append(child)
+            # converting to a tuple to store it in the set because python requires set to store hashable objects 
+            if tuple(child.state) not in explored and child not in fringe:
+                fringe.append(child)
+    return None, explored
                 
         
 
@@ -168,11 +170,21 @@ def depth_first_graph_search(problem):
     Does not get trapped by loops.
     If two paths reach a state, only use the first one.
     """
-    node = Node(problem.initial)  # FIFO queue
-    if problem.goal_test(node.state):
-        return node, None
-    print("depth_first_graph_search: to be done by students")
-    return None, None
+    
+    initialnode = Node(problem.initial)  # FIFO queue
+    fringe = [initialnode]
+    explored = set()
+    while fringe:
+        node = fringe.pop()
+        if problem.goal_test(node.state):
+            return node, explored
+        explored.add(tuple(node.state))
+        for child in node.expand(problem):
+            # here we add child to fringe if its not in fringe with out checking anything because no heuristics associated
+            # with it to make it other wise
+            if tuple(child.state) not in explored and child not in fringe:
+                fringe.append(child)
+    return None, explored
 
 
 def best_first_graph_search(problem, f=None):
@@ -189,6 +201,9 @@ def best_first_graph_search(problem, f=None):
     return None, None
 
 
+# Reason why uniform cost search isn't implemented is because we are using best_first_graph_search
+# and the different f value is being passed into it from the xy_vacuume.search.py file
+# in this case its the node.path_cost
 def uniform_cost_search(problem):
     """[Figure 3.14]"""
     return best_first_graph_search(problem)
@@ -197,7 +212,9 @@ def uniform_cost_search(problem):
 # ______________________________________________________________________________
 # Informed (Heuristic) Search
 
-
+# Reason why Greedy best first search is not implemented is because it we are using the same function as best_first_graph_search
+# Just passing it a different function as a parameter in this case if we look at xy_vacuume.search.py we are passing h(n) as the function
+# using self.h and self.h identifies the heuristic function to be used in the search i.e manhattan distance
 greedy_best_first_graph_search = best_first_graph_search
 
 

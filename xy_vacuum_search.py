@@ -51,10 +51,18 @@ class VacuumPlanning(Problem):
             path, explored = breadth_first_graph_search(self)
         elif self.searchType == 'DFS':
             path, explored = depth_first_graph_search(self)
+
+
+            #node.pathcost is a variable in the node class that is used 
+            #to store the cost of the path from the initial state to the current state.
         elif self.searchType == 'UCS':
             path, explored = best_first_graph_search(self, lambda node: node.path_cost)
+
+            ## Self.h Is a method in this genereate solution class that returns the heuristic value for a given state.
         elif self.searchType == 'Greedy':
             path, explored = best_first_graph_search(self, self.h)
+
+            
         elif self.searchType == 'A*':
             path, explored = astar_search(self, None)
         else:
