@@ -129,7 +129,7 @@ class VacuumPlanning(Problem):
         Rotation of the Vacuum machine costs equivalent of 0.5 unit for each 90' rotation. """
         totalcost = curNode.path_cost + 1
         if (self.turnCostOn == True):
-            totalcost += ( 0.5 * self.computeTurnCost(curNode.action , action))
+            totalcost += ( 2 * self.computeTurnCost(curNode.action , action))
         return totalcost
 
     def computeTurnCost(self, action1, action):
@@ -519,7 +519,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         wid = int(sys.argv[1])
 
-    hig = 18
+    hig = 20
     if len(sys.argv) > 2:
         hig = int(sys.argv[2])
 

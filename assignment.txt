@@ -42,3 +42,8 @@ There are 2 items in the report analyse:
 
 Green: Number of steps 
 Blue : total cost 
+
+
+In lecture: 
+
+Prof said going to next room costs us 10 units hence turn cost will be 5 units 
