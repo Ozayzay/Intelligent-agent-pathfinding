@@ -197,6 +197,9 @@ def best_first_graph_search(problem, f=None):
     a best first search you can examine the f values of the path returned."""
 
     explored = set()
+    # We aren't calculating f with in this call , its being done by us when we call
+    # the function and pass either node.path_cost , self.h or self.h + node.path_cost
+    # for UCS , greedy and A* respectively
     f = memoize(f or problem.h, 'f')
     node = Node(problem.initial)
     fringe = PriorityQueue('min', f)
@@ -234,7 +237,6 @@ def uniform_cost_search(problem):
 
 # ______________________________________________________________________________
 # Informed (Heuristic) Search
-
 # Reason why Greedy best first search is not implemented is because it we are using the same function as best_first_graph_search
 # Just passing it a different function as a parameter in this case if we look at xy_vacuume.search.py we are passing h(n) as the function
 # using self.h and self.h identifies the heuristic function to be used in the search i.e manhattan distance
